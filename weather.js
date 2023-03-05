@@ -5,7 +5,14 @@ const APIkey = "063588d5aa9d61dd692da3158d186d6a" ;
 const loadData = async(city) =>{
 try {
 
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}&units=metric`)
+
+    const input = document.getElementById('weather-input');
+
+    const inputValue = input.value;
+
+   const search =  inputValue || city
+   input.value ='' ;
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${APIkey}&units=metric`)
 
     const data = await res.json();
 
@@ -58,15 +65,31 @@ document.getElementById("weather-clouds").classList.add('d-none')
 
 // click search btn 
 
-const search =()=>{
+// const search =()=>{
 
-const input = document.getElementById('weather-input');
+// const input = document.getElementById('weather-input');
 
-const inputValue = input.value;
-loadData(inputValue);
-input.value ='' ;
+// const inputValue = input.value;
+// loadData(inputValue);
+// input.value ='' ;
+
+// }
+
+
+// press enter 
+
+
+document.getElementById('weather-input').addEventListener('keypress', function(event){
+
+
+if(event.key === "Enter"){
+ 
+    loadData();
 
 }
+
+})
+
 
 
 
